@@ -1,13 +1,12 @@
 trigger:
-  - main # Se dispara automáticamente al hacer push a la rama main
+  - main
 
 pool:
   vmImage: 'windows-2022'
 
 variables:
-  proyecto: '**/Portafolio.csproj'
+  proyecto: '**/*.csproj'
   buildConfiguration: 'Release'
-  dotnetVersion: '10.0.x'
 
 stages:
 # 1. ETAPA DE COMPILACIÓN (CI)
@@ -20,14 +19,13 @@ stages:
       displayName: 'Instalar SDK de .NET'
       inputs:
         packageType: 'sdk'
-        version: '$(dotnetVersion)'
+        version: '8.x' # Cambia a 9.x si usas .NET 9
 
     - task: DotNetCoreCLI@2
       displayName: 'Publicar aplicación .NET'
       inputs:
         command: 'publish'
         publishWebProjects: true
-        projects: '$(proyecto)'
         arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
 
@@ -57,7 +55,7 @@ stages:
     - task: AzureWebApp@1
       displayName: 'Desplegar en Azure'
       inputs:
-        azureSubscription: 'azure-connection' # Reemplaza por el nombre exacto de tu Service Connection en Azure DevOps
-        appType: 'webApp'
-        appName: 'PortafolioDevsNixar20261007010712'
+        azureSubscription: 'azure-connection'
+        appType: 'webAppLinux' # Usa 'webApp' si creaste el App Service en Windows
+        appName: 'MIportafolio'
         package: '$(System.ArtifactsDirectory)/drop/*.zip'
