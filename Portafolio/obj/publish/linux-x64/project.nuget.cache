@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "JPbEN380mEA=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\justi\\Downloads\\Portafolio\\Portafolio\\Portafolio.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\justi\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.24.1-preview.1\\microsoft.visualstudio.azure.containers.tools.targets.1.24.1-preview.1.nupkg.sha512",
+    "C:\\Users\\justi\\.nuget\\packages\\microsoft.netcore.app.host.linux-x64\\10.0.11\\microsoft.netcore.app.host.linux-x64.10.0.11.nupkg.sha512"
+  ],
+  "logs": []
+}

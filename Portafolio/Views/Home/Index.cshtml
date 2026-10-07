@@ -1,0 +1,146 @@
+﻿@model  Portafolio.Models.ProfileViewModel
+
+@{
+    ViewData["Title"] = "Perfil Profesional";
+}
+
+<style>
+    body {
+        background: #0f172a !important;
+        color: #f8fafc !important;
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    .hero-card {
+        background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #1e293b 100%) !important;
+        border: 1px solid rgba(139, 92, 246, 0.3) !important;
+        box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.3) !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .text-gradient-primary {
+        background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .text-gradient-sub {
+        color: #38bdf8 !important;
+        text-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+    }
+
+    .custom-card {
+        background: rgba(30, 41, 59, 0.7) !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(12px);
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .custom-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(56, 189, 248, 0.4) !important;
+            box-shadow: 0 12px 24px -10px rgba(56, 189, 248, 0.2) !important;
+        }
+
+    .badge-skill {
+        background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%) !important;
+        color: #ffffff !important;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        letter-spacing: 0.3px;
+    }
+
+    .badge-devops {
+        background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+        color: #fff8f1 !important;
+        border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .btn-github {
+        background: linear-gradient(90deg, #6366f1, #a855f7) !important;
+        color: #ffffff !important;
+        border: none !important;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(168, 85, 247, 0.35);
+        transition: all 0.3s ease;
+    }
+
+        .btn-github:hover {
+            background: linear-gradient(90deg, #4f46e5, #9333ea) !important;
+            color: #ffffff !important;
+            box-shadow: 0 6px 20px rgba(168, 85, 247, 0.5);
+            transform: scale(1.03);
+        }
+</style>
+
+<div class="container my-4">
+    <div class="p-5 mb-4 hero-card text-white rounded-4 shadow-lg text-center">
+        <h1 class="display-4 fw-bold text-gradient-primary">@Model.FullName</h1>
+        <p class="fs-4 fw-semibold text-gradient-sub">@Model.RoleTitle</p>
+        <p class="col-md-8 mx-auto lead text-light opacity-75">@Model.Summary</p>
+
+        <div class="d-flex justify-content-center gap-3 mt-4">
+            <a href="@Model.GithubUrl" target="_blank" class="btn btn-github btn-lg px-4 rounded-pill">
+                GitHub
+            </a>
+
+        </div>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var category in Model.Skillprofile)
+        {
+            <div class="col-md-6">
+                <div class="h-100 p-4 custom-card rounded-4 shadow-sm">
+                    <h3 class="fw-bold mb-3 text-info">@category.CategoryName</h3>
+                    <div class="d-flex flex-wrap gap-2">
+                        @foreach (var skill in category.Skills)
+                        {
+                            <span class="badge badge-skill fs-6 px-3 py-2 rounded-pill shadow-sm">@skill</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="p-4 custom-card rounded-4 shadow-sm">
+                <h3 class="fw-bold mb-2 text-warning">Herramientas en Práctica & Cloud</h3>
+                <p class="text-light opacity-75 mb-3">Infraestructura y tecnologías con las que trabajo actualmente:</p>
+                <div class="d-flex flex-wrap gap-2">
+                    @foreach (var item in Model.LearningStack)
+                    {
+                        <span class="badge badge-devops fs-6 px-3 py-2 rounded-pill">⚙️ @item</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Sección de Proyectos -->
+<div class="row mt-5">
+    <div class="col-12 mb-3">
+        <h2 class="fw-bold text-gradient-primary">Proyectos Destacados</h2>
+    </div>
+
+    @foreach (var project in Model.Projects)
+    {
+        <div class="col-md-6 mb-4">
+            <div class="card custom-card h-100 overflow-hidden rounded-4">
+                <img src="@project.ImageUrl" class="card-img-top img-fluid" alt="@project.Title" style="height: 220px; object-fit: cover;" />
+                <div class="card-body d-flex flex-column">
+                    <h4 class="card-title text-info fw-bold">@project.Title</h4>
+                    <p class="card-text text-light opacity-75 flex-grow-1">@project.Description</p>
+                    @if (!string.IsNullOrEmpty(project.ProjectUrl))
+                    {
+                        <a href="@project.ProjectUrl" target="_blank" class="btn btn-github rounded-pill mt-3 align-self-start">
+                            Ver Proyecto
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>
