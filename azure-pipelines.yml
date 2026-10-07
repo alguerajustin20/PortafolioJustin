@@ -16,10 +16,11 @@ stages:
   - job: BuildJob
     steps:
     - task: UseDotNet@2
-      displayName: 'Instalar SDK de .NET'
+      displayName: 'Instalar SDK de .NET 10'
       inputs:
         packageType: 'sdk'
-        version: '8.x' # Cambia a 9.x si usas .NET 9
+        version: '10.x'
+        includePreviewVersions: true # Permite descargar e instalar .NET 10
 
     - task: DotNetCoreCLI@2
       displayName: 'Publicar aplicación .NET'
@@ -56,6 +57,6 @@ stages:
       displayName: 'Desplegar en Azure'
       inputs:
         azureSubscription: 'azure-connection'
-        appType: 'webAppLinux' # Usa 'webApp' si creaste el App Service en Windows
+        appType: 'webAppLinux'
         appName: 'MIportafolio'
         package: '$(System.ArtifactsDirectory)/drop/*.zip'
