@@ -8,12 +8,12 @@ EXPOSE 8080
 EXPOSE 8081
 
 
-# Esta fase se usa para compilar el proyecto de servicio j
+# Esta fase se usa para compilar el proyecto de servicio
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Portafolio/Portafolio.csproj", "Portafolio/"]
-RUN dotnet restore "./Portafolio/Portafolio.csproj"
+COPY ["Portafolio.csproj", "./"]
+RUN dotnet restore "Portafolio.csproj"
 COPY . .
 WORKDIR "/src/Portafolio"
 RUN dotnet build "./Portafolio.csproj" -c $BUILD_CONFIGURATION -o /app/build
