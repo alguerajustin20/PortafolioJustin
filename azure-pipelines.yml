@@ -33,7 +33,8 @@ stages:
       inputs:
         command: 'buildAndPush'
         repository: '$(imageRepository)'
-        dockerfile: '**/Dockerfile'
+        dockerfile: 'Dockerfile'
+        buildContext: '.'
         containerRegistry: '$(containerRegistryServiceConnection)'
         tags: |
           latest
